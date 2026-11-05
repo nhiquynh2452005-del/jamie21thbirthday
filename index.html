@@ -538,7 +538,43 @@
   .memory-card-face { border-radius: 11px; }
   .memory-gallery img { height: 85px; }
 }
-/* ===== END MEMORY MATCH CSS ===== */
+
+/* FIX KICH THUOC ANH POPUP */
+.memory-popup {
+  padding: 12px !important;
+  box-sizing: border-box !important;
+}
+
+.memory-popup-content {
+  width: 100% !important;
+  max-width: 700px !important;
+  height: auto !important;
+  max-height: calc(100vh - 24px) !important;
+  max-height: calc(100dvh - 24px) !important;
+  padding: 0 !important;
+  gap: 12px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+#memoryPopupImage {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: calc(100vw - 48px) !important;
+  max-height: calc(100vh - 110px) !important;
+  max-height: calc(100dvh - 110px) !important;
+  object-fit: contain !important;
+  flex: 0 1 auto !important;
+  min-height: 0 !important;
+}
+
+.memory-continue {
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+  /* ===== END MEMORY MATCH CSS ===== */
   </style>
 </head>
   <audio id="birthdayVoice" preload="auto">
