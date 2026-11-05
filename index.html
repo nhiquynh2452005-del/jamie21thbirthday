@@ -500,6 +500,25 @@
   gap: 18px;
   max-width: 96vw;
   max-height: 94vh;
+  animation: memoryPopIn 0.45s ease-out;
+}
+
+@keyframes memoryPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  max-width: 96vw;
+  max-height: 94vh;
 }
 .memory-popup img {
   display: block;
@@ -1038,6 +1057,43 @@ oracleShuffle.addEventListener("click", () => {
 
   // Cập nhật bộ đếm
   function updateStats() {
+    // Âm thanh khi tìm được cặp đúng
+function playMatchSound() {
+  const AudioContext =
+    window.AudioContext || window.webkitAudioContext;
+
+  if (!AudioContext) return;
+
+  const audio = new AudioContext();
+
+  const notes = [659.25, 783.99];
+
+  notes.forEach((frequency, index) => {
+    const oscillator = audio.createOscillator();
+    const gain = audio.createGain();
+
+    oscillator.type = "sine";
+    oscillator.frequency.value = frequency;
+
+    gain.gain.setValueAtTime(0.001, audio.currentTime + index * 0.13);
+    gain.gain.exponentialRampToValueAtTime(
+      0.12,
+      audio.currentTime + index * 0.13 + 0.02
+    );
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      audio.currentTime + index * 0.13 + 0.22
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audio.destination);
+
+    oscillator.start(audio.currentTime + index * 0.13);
+    oscillator.stop(audio.currentTime + index * 0.13 + 0.23);
+  });
+
+  setTimeout(() => audio.close(), 700);
+}
     movesLabel.textContent = moves;
     pairsLabel.textContent = matchedPairs + " / 6";
   }
@@ -1126,12 +1182,15 @@ oracleShuffle.addEventListener("click", () => {
 
       matchedPairs++;
       updateStats();
+      playMatchSound();
 
       // Lưu ảnh vào bộ sưu tập
       addUnlockedPhoto(pairNumber);
+      // Hiệu ứng chúc mừng khi tìm được cặp đúng
+confetti(35);
 
       feedback.textContent =
-        "Tìm được một cặp rồi! Một kỷ niệm đang chờ út. ♡";
+        "Tìm được một cặp rồi! Tới luôn út iu. ♡";
 
       // Khóa game trong lúc xem ảnh
       lockBoard = true;
@@ -1181,7 +1240,7 @@ oracleShuffle.addEventListener("click", () => {
     finish.hidden = true;
 
     feedback.textContent =
-      "Tìm đủ 6 cặp để mở tất cả kỷ niệm nha! ♡";
+      "Tìm đủ 6 cặp nha út hihi! ♡";
 
     updateStats();
 
