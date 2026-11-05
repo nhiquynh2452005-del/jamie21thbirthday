@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#fff1f5" />
-  <title>Happy Birthday, Bestie! ♡</title>
+  <title>Happy Birthday, Jamie iu! ♡</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
     :root {
@@ -96,44 +96,42 @@
         <div class="eyebrow">✦ today is all about you ✦</div>
         <div class="hero-art"><span class="spark s1">✧</span><span class="spark s2">♡</span><span class="spark s3">✦</span><div class="cake">🎂</div></div>
         <h1>Happy Birthday,<br><span id="friendName">Bestie</span>!</h1>
-        <p>Một ngày đặc biệt dành cho một người cũng đặc biệt không kém. Hôm nay, bạn được quyền vui hết cỡ, ăn bánh không cần chia và nhận thật nhiều yêu thương. 💗</p>
-        <button class="cta" onclick="document.querySelector('#memories').scrollIntoView({behavior:'smooth'})">Bắt đầu bữa tiệc nhỏ ↓</button>
-        <p class="hint">Psst... kéo xuống nhé, còn quà ở phía dưới đó!</p>
+        <p>Hello út iu của 2 vậy là út đã bước sang tuổi 21 rồi chúc út có nhiều niềm vui nha 💗</p>
+        <button class="cta" onclick="document.querySelector('#memories').scrollIntoView({behavior:'smooth'})">Quà của út iu ↓</button>
+        <p class="hint">Psst... kéo xuống nè út</p>
       </div>
     </section>
 
     <section class="memories" id="memories">
       <div class="section-inner">
         <div class="section-kicker">a tiny trip down memory lane</div>
-        <h2>Những điều nhỏ xíu,<br>nhưng đáng nhớ thật lâu.</h2>
-        <p class="section-desc">Có những khoảnh khắc chẳng cần lung linh, chỉ cần đúng người xuất hiện là tự nhiên thành kỷ niệm.</p>
+        <h2>Những điều nhỏ xíu,<br>thế mà lại hay.</h2>
+        <p class="section-desc">Vậy là chị 2 và út đã đi chung với nhau đoạn đường 6 năm rồi đó nha.</p>
         <div class="memory-grid">
-          <article class="memory" style="--r:-2deg"><div class="photo"><div><span class="emoji">📸</span><small>thay ảnh kỷ niệm ở đây</small></div></div><p>Những ngày ngốc nghếch</p><div class="sub">Ảnh của hai đứa · 01</div></article>
-          <article class="memory" style="--r:1.5deg"><div class="photo"><div><span class="emoji">🍰</span><small>thay ảnh kỷ niệm ở đây</small></div></div><p>Những lần đi ăn</p><div class="sub">Ảnh của hai đứa · 02</div></article>
-          <article class="memory" style="--r:-1deg"><div class="photo"><div><span class="emoji">🌷</span><small>thay ảnh kỷ niệm ở đây</small></div></div><p>Và cả những ngày bình thường</p><div class="sub">Ảnh của hai đứa · 03</div></article>
+          <article class="memory" style="--r:-2deg"><div class="photo"><div><span class="emoji">📸</span><small>thay ảnh kỷ niệm ở đây</small></div></div><p>Mấy chị em ở Mạc</p><div class="sub">Ảnh của hai đứa · 01</div></article>
+          <article class="memory" style="--r:1.5deg"><div class="photo"><div><span class="emoji">🍰</span><small>thay ảnh kỷ niệm ở đây</small></div></div><p>Mấy chị em ở biển</p><div class="sub">Ảnh của hai đứa · 02</div></article>
+          <article class="memory" style="--r:-1deg"><div class="photo"><div><span class="emoji">🌷</span><small>thay ảnh kỷ niệm ở đây</small></div></div><p>Mấy chị em ở Tân Nhật</p><div class="sub">Ảnh của hai đứa · 03</div></article>
         </div>
-        <div class="note">📌 <strong>Gợi ý cá nhân hóa:</strong> Thay ba ô minh họa bằng ảnh thật của hai bạn. Chọn ảnh vui, ảnh “dìm hàng” nhẹ và một tấm thật đáng nhớ nhé!</div>
-      </div>
     </section>
 
     <section class="letter-section" id="letter">
       <div class="section-inner">
         <div class="section-kicker">open when you're ready</div>
-        <h2>Có một chiếc thư<br>dành riêng cho bạn.</h2>
-        <p class="section-desc">Không phải hóa đơn, không phải deadline. Lần này mở thư ra chỉ có yêu thương thôi.</p>
+        <h2>Love Language của chị em mình là<br>thư tay mà.</h2>
+        <p class="section-desc">Lời yêu thương cho út yêu.</p>
         <div class="letter-wrap">
           <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Mở phong thư" onclick="openLetter()">
             <div class="env-body"></div><div class="env-flap" id="flap"></div><div class="seal">💌</div>
           </div>
           <button class="cta" id="openBtn" onclick="openLetter()">Mở thư nè ♡</button>
           <article class="letter" id="letterContent">
-            <h3>Gửi người bạn đáng quý của tớ,</h3>
-            <p>Chúc mừng sinh nhật nha! 🎂</p>
-            <p>Cảm ơn vì đã xuất hiện trong cuộc đời tớ, cùng tớ tạo ra những câu chuyện mà sau này nghĩ lại chắc vẫn phải bật cười. Cảm ơn vì những lần lắng nghe, những cuộc trò chuyện không đầu không cuối và cả những khoảnh khắc chẳng cần làm gì đặc biệt nhưng vẫn thấy vui.</p>
-            <p>Tuổi mới, mong cậu có thật nhiều sức khỏe, bình an, gặp được những người tử tế và có đủ dũng khí để làm những điều mình mong muốn. Mong những dự định của cậu sẽ dần thành hiện thực — còn những chuyện không như ý thì cứ để chúng ta từ từ xử lý, không cần giải quyết hết trong một ngày đâu.</p>
-            <p>Và dù cậu có lớn thêm một tuổi thì cũng đừng trưởng thành quá nhanh nhé. Vẫn cứ vui vẻ, hơi ngốc nghếch một chút, và nhớ dành thời gian cho những điều khiến cậu hạnh phúc.</p>
-            <p>Cuối cùng, chúc mừng vì đã sống sót qua thêm một vòng quanh Mặt Trời. Thành tựu đáng nể! Tớ vẫn ở đây để chứng kiến những chương tiếp theo — và thỉnh thoảng nhắc cậu rằng cậu tuyệt vời đến mức nào.</p>
-            <p class="sign">Thương mến, <br>đứa bạn thân hơi phiền nhưng rất chân thành ♡</p>
+            <h3>Gửi út iu của chị 2,</h3>
+            <p>Chúc mừng sinh nhật út! 🎂</p>
+            <p>Tuổi 21 sẽ có nhiều điều mới, nhiều điều lạ mà trước gì út chưa bao giờ gặp. Sẽ có vui và sẽ có buồn, có cả những hoang mang nữa</p>
+            <p>Chị 2 chúc út sẽ chân cứng đá mềm, có nhiều sức khỏe, thêm nhiều kinh nghiệm và trải nghiệm và gặp được thêm nhiều người thương út.</p>
+            <p>Và dù út có lớn thêm một tuổi thì trong lòng chị 2 út vẫn luôn là Diễm Quỳnh năm 16 tuổi ngồi với chị 2 ở ghế đá ngay góc căn tin.</p>
+            <p>Cuối cùng,chị 2 vẫn luôn tự hào vì có người bạn thân là út, mong út sẽ ngày càng thành công.</p>
+            <p class="sign">Yêu út, <br>chị Hai của út ♡</p>
           </article>
         </div>
       </div>
@@ -143,10 +141,10 @@
       <div class="section-inner">
         <div class="section-kicker">one last little thing</div>
         <h2>Make a wish! ✨</h2>
-        <p class="section-desc">Nhắm mắt lại, nghĩ về một điều bạn thật sự mong muốn rồi nhấn nút bên dưới nhé.</p>
+        <p class="section-desc">Nhắm mắt lại, nghĩ về một điều út thật sự mong muốn rồi nhấn nút bên dưới nhé.</p>
         <div class="cake-big">🎂</div>
         <div class="candles" id="candles">🕯️ 🕯️ 🕯️</div>
-        <button class="cta" id="wishBtn" onclick="makeWish()">Tớ thổi nến đây! 💨</button>
+        <button class="cta" id="wishBtn" onclick="makeWish()">Út thổi nến đây! 💨</button>
         <div class="wish-message" id="wishMessage" aria-live="polite"></div>
       </div>
     </section>
@@ -155,10 +153,10 @@
 
   <script>
     // ===== PERSONALIZE HERE =====
-    const FRIEND_NAME = "Tên bạn thân"; // Ví dụ: "Minh Anh"
+    const FRIEND_NAME = "Jamie Ho"; // Ví dụ: "Minh Anh"
     // ===========================
 
-    const cleanName = FRIEND_NAME.trim() && FRIEND_NAME !== "Tên bạn thân" ? FRIEND_NAME : "Bestie";
+    const cleanName = Jamie Ho.trim() && FRIEND_NAME !== "Tên bạn thân" ? FRIEND_NAME : "Bestie";
     document.getElementById("friendName").textContent = cleanName;
     document.getElementById("footerName").textContent = cleanName.toUpperCase();
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -182,7 +180,7 @@
       wished = true;
       document.getElementById("candles").classList.add("out");
       document.getElementById("wishBtn").textContent = "Điều ước đã được gửi đi ♡";
-      document.getElementById("wishMessage").textContent = "Mong điều ước của cậu sẽ tìm được đường thành hiện thực. Happy Birthday! 💗";
+      document.getElementById("wishMessage").textContent = "Mong điều ước của út đã thành hiện thực ở tương lai. Happy Birthday! 💗";
       confetti(100);
     }
     function confetti(amount){
