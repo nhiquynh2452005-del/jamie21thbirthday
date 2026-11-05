@@ -521,6 +521,9 @@
 /* ===== END MEMORY MATCH CSS ===== */
   </style>
 </head>
+  <audio id="birthdayVoice" preload="auto">
+  <source src="birthday-voice.m4a" type="audio/mp4">
+</audio>
 <body>
   <div class="grain"></div>
   <header class="topbar"><div class="brand">♡ little birthday surprise</div><div>made with love · <span id="year"></span></div></header>
@@ -764,6 +767,13 @@
       document.getElementById("wishBtn").textContent = "Điều ước đã được gửi đi ♡";
       document.getElementById("wishMessage").textContent = "Mọi điều ước của út đã thành hiện thực ở tương lai. Happy Birthday! 💗";
       confetti(100);
+        const birthdayVoice = document.getElementById("birthdayVoice");
+
+  if (birthdayVoice) {
+    birthdayVoice.play().catch(error => {
+      console.log("Không thể phát file ghi âm:", error);
+    });
+  }
     }
     function confetti(amount){
       const colors=["#f7b8c9","#ffe09b","#c8e6d0","#d9c8f2","#fff"];
