@@ -575,10 +575,62 @@
 }
 
   /* ===== END MEMORY MATCH CSS ===== */
+  /* ===== BACKGROUND MUSIC BUTTON ===== */
+.music-toggle {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 18px;
+  border: 1px solid #e8b9c7;
+  border-radius: 30px;
+  background: rgba(255, 250, 248, 0.95);
+  color: #a65e75;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(120, 60, 80, 0.15);
+  transition: all 0.25s ease;
+}
+
+.music-toggle:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(120, 60, 80, 0.2);
+}
+
+.music-icon {
+  font-size: 19px;
+}
+
+.music-toggle.is-playing .music-icon {
+  animation: musicPulse 1s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
+
+@media (max-width: 600px) {
+  .music-toggle {
+    right: 14px;
+    bottom: 14px;
+    padding: 10px 14px;
+  }
+}
   </style>
 </head>
   <audio id="birthdayVoice" preload="auto">
   <source src="birthday-voice.m4a" type="audio/mp4">
+</audio>
+  <!-- BACKGROUND MUSIC -->
+<audio id="backgroundMusic" loop preload="none">
+  <source src="background-music.mp3" type="audio/mpeg">
 </audio>
 <body>
   <div class="grain"></div>
@@ -1316,5 +1368,44 @@ confetti(35);
 // ===== END MEMORY MATCH GAME LOGIC =====
 
   </script>
+  <!-- MUSIC BUTTON -->
+<button id="musicToggle" class="music-toggle" type="button"
+        aria-label="Bật nhạc nền">
+  <span class="music-icon">♫</span>
+  <span id="musicLabel">MUSIC OFF</span>
+</button>
+  
+<script>
+  // ===== BACKGROUND MUSIC =====
+  const backgroundMusic = document.getElementById("backgroundMusic");
+  const musicToggle = document.getElementById("musicToggle");
+  const musicLabel = document.getElementById("musicLabel");
+
+  if (backgroundMusic && musicToggle) {
+    backgroundMusic.volume = 0.3;
+
+    musicToggle.addEventListener("click", async function () {
+      if (backgroundMusic.paused) {
+        try {
+          await backgroundMusic.play();
+
+          musicLabel.textContent = "MUSIC ON";
+          musicToggle.classList.add("is-playing");
+          musicToggle.setAttribute("aria-label", "Tắt nhạc nền");
+        } catch (error) {
+          console.error("Không thể phát nhạc:", error);
+          musicLabel.textContent = "TRY AGAIN";
+        }
+      } else {
+        backgroundMusic.pause();
+
+        musicLabel.textContent = "MUSIC OFF";
+        musicToggle.classList.remove("is-playing");
+        musicToggle.setAttribute("aria-label", "Bật nhạc nền");
+      }
+    });
+  }
+</script>
+
 </body>
 </html>
