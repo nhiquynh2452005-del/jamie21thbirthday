@@ -105,6 +105,40 @@
 .memory:nth-child(2) .photo img {
   object-position: center 75%;
 }
+ 
+/* Floating hearts */
+.floating-heart {
+  position: fixed;
+  bottom: -35px;
+  z-index: 6;
+  pointer-events: none;
+  color: #e98ba8;
+  opacity: 0;
+  animation: heart-rise 7s ease-in forwards;
+  filter: drop-shadow(0 2px 5px #e98ba855);
+  user-select: none;
+}
+
+@keyframes heart-rise {
+  0% {
+    transform: translateY(0) translateX(0) rotate(-10deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.75;
+  }
+
+  80% {
+    opacity: 0.65;
+  }
+
+  100% {
+    transform: translateY(-110vh) translateX(var(--drift)) rotate(25deg);
+    opacity: 0;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -225,6 +259,48 @@
         setTimeout(()=>bit.remove(),5200);
       }
     }
+    
+// ===== FLOATING HEARTS =====
+
+const reduceMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
+
+function createFloatingHeart() {
+  // Giới hạn số trái tim xuất hiện cùng lúc
+  if (document.querySelectorAll(".floating-heart").length >= 8) {
+    return;
+  }
+
+  const heart = document.createElement("span");
+
+  heart.className = "floating-heart";
+  heart.textContent = Math.random() > 0.5 ? "♡" : "♥";
+
+  heart.style.left = Math.random() * 95 + "vw";
+  heart.style.fontSize = (14 + Math.random() * 18) + "px";
+  heart.style.animationDuration = (6 + Math.random() * 3) + "s";
+  heart.style.setProperty(
+    "--drift",
+    (Math.random() * 100 - 50) + "px"
+  );
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 9500);
+}
+
+// Chỉ chạy khi người xem không bật chế độ giảm chuyển động
+if (!reduceMotion) {
+  createFloatingHeart();
+
+  setInterval(createFloatingHeart, 1300);
+}
+
+// ===== END FLOATING HEARTS =====
+
   </script>
 </body>
 </html>
