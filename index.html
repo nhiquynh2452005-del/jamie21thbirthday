@@ -106,39 +106,247 @@
   object-position: center 75%;
 }
  
-/* Floating hearts */
-.floating-heart {
-  position: fixed;
-  bottom: -35px;
-  z-index: 6;
-  pointer-events: none;
-  color: #e98ba8;
-  opacity: 0;
-  animation: heart-rise 7s ease-in forwards;
-  filter: drop-shadow(0 2px 5px #e98ba855);
-  user-select: none;
+ /* ===== THE LITTLE ORACLE ===== */
+.oracle-section {
+  background:
+    radial-gradient(circle at 15% 20%, #fce5ed 0, transparent 30%),
+    radial-gradient(circle at 85% 80%, #f8e9d5 0, transparent 30%),
+    #fff8f3;
+  text-align: center;
+  overflow: hidden;
 }
 
-@keyframes heart-rise {
-  0% {
-    transform: translateY(0) translateX(0) rotate(-10deg);
-    opacity: 0;
-  }
-
-  15% {
-    opacity: 0.75;
-  }
-
-  80% {
-    opacity: 0.65;
-  }
-
-  100% {
-    transform: translateY(-110vh) translateX(var(--drift)) rotate(25deg);
-    opacity: 0;
-  }
+.oracle-section .section-inner {
+  max-width: 900px;
 }
 
+.oracle-subtitle {
+  color: #a17b87;
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 540px;
+  margin: 0 auto 30px;
+}
+
+.oracle-stars {
+  color: #c58ba0;
+  letter-spacing: 12px;
+  font-size: 20px;
+  margin: 20px 0;
+}
+
+.oracle-deck {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(10px, 3vw, 28px);
+  margin: 35px auto 25px;
+  perspective: 1000px;
+}
+
+.oracle-card {
+  width: clamp(100px, 23vw, 155px);
+  aspect-ratio: 2 / 3.2;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  perspective: 1000px;
+  transition: transform .3s, opacity .3s;
+}
+
+.oracle-card:hover:not(:disabled) {
+  transform: translateY(-10px) rotate(-2deg);
+}
+
+.oracle-card:disabled {
+  cursor: default;
+}
+
+.oracle-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform .75s cubic-bezier(.2,.7,.2,1);
+  transform-style: preserve-3d;
+}
+
+.oracle-card.is-flipped .oracle-card-inner {
+  transform: rotateY(180deg);
+}
+
+.oracle-card-back,
+.oracle-card-front {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 15px;
+  border: 2px solid #d8adba;
+  box-shadow: 0 12px 25px #9e718022;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.oracle-card-back {
+  background:
+    repeating-linear-gradient(45deg, #f9e5e9 0 5px, #fff7f2 5px 10px);
+  color: #b77890;
+  outline: 1px solid #d8adba;
+  outline-offset: -8px;
+}
+
+.oracle-card-back .oracle-symbol {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 7vw, 52px);
+}
+
+.oracle-card-back small {
+  font-size: 9px;
+  letter-spacing: .13em;
+  margin-top: 12px;
+  font-weight: 800;
+}
+
+.oracle-card-front {
+  transform: rotateY(180deg);
+  background: linear-gradient(145deg, #fffaf0, #f7dce5);
+  color: #795565;
+  outline: 1px solid #d8adba;
+  outline-offset: -8px;
+}
+
+.oracle-card-front .oracle-symbol {
+  font-size: clamp(27px, 6vw, 42px);
+  margin-bottom: 12px;
+}
+
+.oracle-card-front strong {
+  font: 700 clamp(11px, 2vw, 15px) 'Playfair Display', serif;
+  line-height: 1.4;
+}
+
+.oracle-card.selected {
+  transform: translateY(-8px);
+}
+
+.oracle-card.dimmed {
+  opacity: .35;
+}
+
+.oracle-card.is-shuffling {
+  animation: oracleShuffle .65s ease;
+}
+
+@keyframes oracleShuffle {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-9px) rotate(-5deg); }
+  50% { transform: translateX(9px) rotate(5deg); }
+  75% { transform: translateX(-5px) rotate(-3deg); }
+}
+
+.oracle-result {
+  max-width: 570px;
+  margin: 28px auto 0;
+  padding: 25px clamp(18px, 5vw, 38px);
+  background: #fffdf9;
+  border: 1px solid #eed9df;
+  border-radius: 20px;
+  box-shadow: 0 12px 35px #a8798720;
+  animation: rise .5s ease;
+}
+
+.oracle-result[hidden] {
+  display: none;
+}
+
+.oracle-result-label {
+  color: #bd8295;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.oracle-result h3 {
+  font: 700 clamp(25px, 5vw, 34px) 'Playfair Display', serif;
+  color: #9e617b;
+  margin: 12px 0;
+}
+
+.oracle-result p {
+  color: #806b72;
+  line-height: 1.9;
+  font-size: 15px;
+  margin: 0;
+}
+
+.oracle-counter {
+  color: #a98b94;
+  font-size: 12px;
+  margin: 20px 0;
+}
+
+.oracle-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.oracle-button {
+  border: 1px solid #d99aae;
+  border-radius: 99px;
+  background: #fffaf8;
+  color: #a96780;
+  padding: 12px 20px;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: .06em;
+  transition: .2s;
+}
+
+.oracle-button:hover {
+  background: #f8e4e9;
+  transform: translateY(-2px);
+}
+
+.oracle-button.primary {
+  background: #bd7890;
+  color: white;
+  border-color: #bd7890;
+}
+
+.oracle-button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.oracle-note {
+  color: #b39ba2;
+  font-size: 11px;
+  line-height: 1.7;
+  margin-top: 25px;
+}
+
+@media (max-width: 430px) {
+  .oracle-deck {
+    gap: 8px;
+  }
+  .oracle-card {
+    width: 29%;
+  }
+  .oracle-card-back,
+  .oracle-card-front {
+    border-radius: 11px;
+    padding: 6px;
+  }
+}
+/* ===== END THE LITTLE ORACLE ===== */
   </style>
 </head>
 <body>
@@ -175,7 +383,86 @@
 </div><p>Mấy chị em ở Tân Nhựt</p><div class="sub">tuổi thơ cánh đồng lúa · 03</div></article>
         </div>
     </section>
+    <!-- THE LITTLE ORACLE -->
+    <section class="oracle-section" id="oracle">
+      <div class="section-inner">
+        <div class="section-kicker">a little message from the universe</div>
+        <h2>The Little Oracle ✦</h2>
 
+        <p class="oracle-subtitle">
+          Có 12 lá bài đang chờ út khám phá.
+          Hãy chọn một lá và xem hôm nay vũ trụ muốn nhắn nhủ điều gì nhé.
+        </p>
+
+        <div class="oracle-stars">✧ ✦ ✧</div>
+
+        <div class="oracle-deck" id="oracleDeck">
+          <button class="oracle-card" type="button" aria-label="Chọn lá bài thứ nhất">
+            <span class="oracle-card-inner">
+              <span class="oracle-card-back">
+                <span class="oracle-symbol">✧</span>
+                <small>THE ORACLE</small>
+              </span>
+              <span class="oracle-card-front">
+                <span class="oracle-symbol"></span>
+                <strong></strong>
+              </span>
+            </span>
+          </button>
+
+          <button class="oracle-card" type="button" aria-label="Chọn lá bài thứ hai">
+            <span class="oracle-card-inner">
+              <span class="oracle-card-back">
+                <span class="oracle-symbol">☾</span>
+                <small>THE ORACLE</small>
+              </span>
+              <span class="oracle-card-front">
+                <span class="oracle-symbol"></span>
+                <strong></strong>
+              </span>
+            </span>
+          </button>
+
+          <button class="oracle-card" type="button" aria-label="Chọn lá bài thứ ba">
+            <span class="oracle-card-inner">
+              <span class="oracle-card-back">
+                <span class="oracle-symbol">✦</span>
+                <small>THE ORACLE</small>
+              </span>
+              <span class="oracle-card-front">
+                <span class="oracle-symbol"></span>
+                <strong></strong>
+              </span>
+            </span>
+          </button>
+        </div>
+
+        <div class="oracle-counter" id="oracleCounter" aria-live="polite">
+          0 / 12 thông điệp đã được khám phá
+        </div>
+
+        <div class="oracle-result" id="oracleResult" hidden aria-live="polite">
+          <div class="oracle-result-label">your little message</div>
+          <h3 id="oracleTitle"></h3>
+          <p id="oracleMessage"></p>
+        </div>
+
+        <div class="oracle-buttons">
+          <button class="oracle-button primary" id="oracleShuffle" type="button">
+            ✧ SHUFFLE THE DECK
+          </button>
+          <button class="oracle-button" id="oracleAgain" type="button" hidden>
+            DRAW ANOTHER CARD
+          </button>
+        </div>
+
+        <p class="oracle-note">
+          Take what feels right, leave what doesn't. ♡
+          <br>Just a little birthday game made with love.
+        </p>
+      </div>
+    </section>
+    <!-- END THE LITTLE ORACLE -->
     <section class="letter-section" id="letter">
       <div class="section-inner">
         <div class="section-kicker">open when you're ready</div>
@@ -259,48 +546,194 @@
         setTimeout(()=>bit.remove(),5200);
       }
     }
-    
-// ===== FLOATING HEARTS =====
+// ===== THE LITTLE ORACLE: 12 MESSAGES =====
 
-const reduceMotion = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
-).matches;
+const oracleMessages = [
+  {
+    title: "THE SUN ☀",
+    symbol: "☀",
+    message: "You deserve all the happiness in the world. Mong tuổi 21 của út sẽ có thật nhiều ngày nắng đẹp, nhiều tiếng cười và những điều khiến út cảm thấy biết ơn vì mình đang sống."
+  },
+  {
+    title: "THE STAR ✦",
+    symbol: "✦",
+    message: "Even the smallest light can guide you through the darkest night. Đừng quên tin vào bản thân, kể cả trong những ngày út chưa nhìn thấy con đường phía trước."
+  },
+  {
+    title: "THE FOOL ♡",
+    symbol: "♡",
+    message: "New beginnings are waiting for you. Hãy cứ tò mò, cứ thử những điều mới và đừng ngại bắt đầu lại. Tuổi trẻ là để trải nghiệm mà!"
+  },
+  {
+    title: "THE EMPRESS 🌷",
+    symbol: "❀",
+    message: "You deserve the same love you give to others. Mong út luôn biết yêu thương, trân trọng bản thân và dành thời gian chăm sóc chính mình."
+  },
+  {
+    title: "THE WORLD 🌍",
+    symbol: "◎",
+    message: "There is a whole world waiting for you. Mong những chuyến đi sắp tới sẽ đưa út đến những vùng đất mới, gặp những người thú vị và có thêm thật nhiều câu chuyện để kể."
+  },
+  {
+    title: "THE MOON ☾",
+    symbol: "☾",
+    message: "It's okay not to have everything figured out. Không phải lúc nào út cũng cần biết chính xác mình đang đi đâu. Cứ bình tĩnh, rồi mọi thứ sẽ dần sáng tỏ."
+  },
+  {
+    title: "THE LOVERS ♡",
+    symbol: "♡",
+    message: "May your life always be surrounded by genuine love. Mong út luôn gặp được những người chân thành, được yêu thương đúng cách và có những tình bạn thật lâu bền."
+  },
+  {
+    title: "THE MAGICIAN ✧",
+    symbol: "✧",
+    message: "You already have more power than you think. Những điều út mong muốn có thể bắt đầu từ chính những khả năng và sự cố gắng mà út đang có."
+  },
+  {
+    title: "THE CHARIOT ☆",
+    symbol: "☆",
+    message: "Keep moving, even if the journey feels slow. Mong út đủ kiên trì để theo đuổi điều mình muốn, nhưng cũng đủ dịu dàng với bản thân trên hành trình ấy."
+  },
+  {
+    title: "THE STRENGTH ♡",
+    symbol: "♡",
+    message: "Being strong also means allowing yourself to rest. Mong út luôn can đảm trước những thử thách, nhưng đừng quên rằng nghỉ ngơi cũng là một cách để tiếp tục tiến về phía trước."
+  },
+  {
+    title: "THE WHEEL OF FORTUNE ✦",
+    symbol: "✦",
+    message: "Beautiful surprises can happen when you least expect them. Mong tuổi mới mang đến cho út những cơ hội bất ngờ, những cuộc gặp gỡ đáng nhớ và nhiều niềm vui nho nhỏ."
+  },
+  {
+    title: "THE STARLIGHT ✨",
+    symbol: "✧",
+    message: "Never dim your light to make the world more comfortable. Cứ là chính út, cứ giữ sự đáng yêu và cá tính của mình. Thế giới này cần những điều rất riêng mà chỉ út mới có."
+  }
+];
 
-function createFloatingHeart() {
-  // Giới hạn số trái tim xuất hiện cùng lúc
-  if (document.querySelectorAll(".floating-heart").length >= 8) {
-    return;
+const oracleCards = document.querySelectorAll(".oracle-card");
+const oracleResult = document.getElementById("oracleResult");
+const oracleTitle = document.getElementById("oracleTitle");
+const oracleMessage = document.getElementById("oracleMessage");
+const oracleCounter = document.getElementById("oracleCounter");
+const oracleShuffle = document.getElementById("oracleShuffle");
+const oracleAgain = document.getElementById("oracleAgain");
+
+let oracleUsed = [];
+let oracleHasDrawn = false;
+
+function updateOracleCounter() {
+  oracleCounter.textContent =
+    oracleUsed.length + " / 12 thông điệp đã được khám phá";
+}
+
+function resetOracleCards() {
+  oracleCards.forEach(card => {
+    card.classList.remove("is-flipped", "selected", "dimmed");
+    card.disabled = false;
+    card.querySelector(".oracle-card-front .oracle-symbol").textContent = "";
+    card.querySelector(".oracle-card-front strong").textContent = "";
+  });
+}
+
+function drawOracleCard(selectedCard) {
+  if (oracleHasDrawn || oracleUsed.length >= oracleMessages.length) return;
+
+  oracleHasDrawn = true;
+
+  // Chỉ chọn những thông điệp chưa xuất hiện
+  const availableMessages = oracleMessages
+    .map((message, index) => index)
+    .filter(index => !oracleUsed.includes(index));
+
+  const randomPosition = Math.floor(Math.random() * availableMessages.length);
+  const messageIndex = availableMessages[randomPosition];
+  const message = oracleMessages[messageIndex];
+
+  oracleUsed.push(messageIndex);
+
+  // Hiển thị lá bài được chọn
+  selectedCard.querySelector(".oracle-card-front .oracle-symbol").textContent =
+    message.symbol;
+
+  selectedCard.querySelector(".oracle-card-front strong").textContent =
+    message.title;
+
+  selectedCard.classList.add("is-flipped", "selected");
+
+  // Làm mờ hai lá bài còn lại
+  oracleCards.forEach(card => {
+    if (card !== selectedCard) {
+      card.classList.add("dimmed");
+    }
+    card.disabled = true;
+  });
+
+  // Hiển thị thông điệp
+  oracleTitle.textContent = message.title;
+  oracleMessage.textContent = message.message;
+  oracleResult.hidden = false;
+
+  updateOracleCounter();
+
+  // Chuyển màn hình đến thông điệp
+  setTimeout(() => {
+    oracleResult.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  }, 450);
+
+  // Kiểm tra đã khám phá hết 12 lá chưa
+  if (oracleUsed.length >= oracleMessages.length) {
+    oracleAgain.hidden = true;
+    oracleShuffle.textContent = "✧ SHUFFLE A NEW DECK";
+  } else {
+    oracleAgain.hidden = false;
   }
 
-  const heart = document.createElement("span");
-
-  heart.className = "floating-heart";
-  heart.textContent = Math.random() > 0.5 ? "♡" : "♥";
-
-  heart.style.left = Math.random() * 95 + "vw";
-  heart.style.fontSize = (14 + Math.random() * 18) + "px";
-  heart.style.animationDuration = (6 + Math.random() * 3) + "s";
-  heart.style.setProperty(
-    "--drift",
-    (Math.random() * 100 - 50) + "px"
-  );
-
-  document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 9500);
+  confetti(18);
 }
 
-// Chỉ chạy khi người xem không bật chế độ giảm chuyển động
-if (!reduceMotion) {
-  createFloatingHeart();
+// Chọn một trong ba lá bài
+oracleCards.forEach(card => {
+  card.addEventListener("click", () => {
+    drawOracleCard(card);
+  });
+});
 
-  setInterval(createFloatingHeart, 1300);
-}
+// Rút lá tiếp theo
+oracleAgain.addEventListener("click", () => {
+  if (oracleUsed.length >= oracleMessages.length) return;
 
-// ===== END FLOATING HEARTS =====
+  oracleHasDrawn = false;
+  resetOracleCards();
+  oracleResult.hidden = true;
+  oracleAgain.hidden = true;
+});
 
+// Xáo lại toàn bộ bộ bài
+oracleShuffle.addEventListener("click", () => {
+  oracleUsed = [];
+  oracleHasDrawn = false;
+
+  resetOracleCards();
+  oracleResult.hidden = true;
+  oracleAgain.hidden = true;
+
+  updateOracleCounter();
+
+  oracleCards.forEach(card => {
+    card.classList.add("is-shuffling");
+    setTimeout(() => {
+      card.classList.remove("is-shuffling");
+    }, 700);
+  });
+
+  oracleShuffle.textContent = "✧ SHUFFLE THE DECK";
+});
+
+// ===== END THE LITTLE ORACLE =====
   </script>
 </body>
 </html>
