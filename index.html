@@ -347,6 +347,178 @@
   }
 }
 /* ===== END THE LITTLE ORACLE ===== */
+  
+/* ===== MEMORY MATCH CSS ===== */
+.memory-game-section {
+  background: linear-gradient(180deg, #fffaf0, #fff2f5);
+  text-align: center;
+}
+.memory-game-section .section-inner {
+  max-width: 760px;
+}
+.memory-game-panel {
+  max-width: 620px;
+  margin: auto;
+  padding: 25px;
+  background: white;
+  border: 1px solid #f1dce2;
+  border-radius: 26px;
+  box-shadow: var(--shadow);
+}
+.memory-stats {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+.memory-stat {
+  padding: 12px 20px;
+  border-radius: 14px;
+  background: #fff5f5;
+  color: #98717e;
+  font-size: 12px;
+}
+.memory-stat strong {
+  display: block;
+  font-size: 21px;
+  color: #a85f79;
+}
+.memory-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 490px;
+  margin: auto;
+}
+.memory-card {
+  aspect-ratio: 1 / 1.12;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  perspective: 800px;
+}
+.memory-card-inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform .45s;
+  transform-style: preserve-3d;
+}
+.memory-card.is-flipped .memory-card-inner,
+.memory-card.is-matched .memory-card-inner {
+  transform: rotateY(180deg);
+}
+.memory-card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #e7bdca;
+  border-radius: 15px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 7px 17px #9e718022;
+}
+.memory-card-back {
+  background: repeating-linear-gradient(
+    45deg, #f9e5e9 0 6px, #fff9f5 6px 12px
+  );
+  color: #b8758d;
+  font-size: 38px;
+}
+.memory-card-front {
+  transform: rotateY(180deg);
+  background: linear-gradient(145deg, #fffdf8, #f8dfe7);
+  font-size: 40px;
+}
+.memory-card:disabled {
+  cursor: default;
+}
+.memory-feedback {
+  min-height: 24px;
+  margin-top: 18px;
+  color: #a87989;
+  font-size: 13px;
+}
+.memory-restart, .memory-continue {
+  border: 1px solid #d99aae;
+  border-radius: 99px;
+  background: #bd7890;
+  color: white;
+  padding: 13px 25px;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: .08em;
+}
+.memory-restart {
+  margin-top: 20px;
+}
+.memory-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+}
+.memory-gallery:empty {
+  display: none;
+}
+.memory-gallery img {
+  height: 110px;
+  max-width: 42%;
+  width: auto;
+  object-fit: contain;
+  border: 5px solid white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.memory-finish {
+  margin-top: 22px;
+  font: 700 26px 'Playfair Display', serif;
+  color: #a45f79;
+}
+.memory-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(57,39,47,.75);
+  backdrop-filter: blur(7px);
+}
+.memory-popup[hidden],
+.memory-finish[hidden] {
+  display: none;
+}
+.memory-popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  max-width: 96vw;
+  max-height: 94vh;
+}
+.memory-popup img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 92vw;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+.memory-continue {
+  min-width: 150px;
+}
+@media(max-width:430px) {
+  .memory-board { gap: 7px; }
+  .memory-card-face { border-radius: 11px; }
+  .memory-gallery img { height: 85px; }
+}
+/* ===== END MEMORY MATCH CSS ===== */
   </style>
 </head>
 <body>
@@ -463,6 +635,68 @@
       </div>
     </section>
     <!-- END THE LITTLE ORACLE -->
+    
+<!-- ===== MEMORY MATCH GAME ===== -->
+<section class="memory-game-section" id="memory-match">
+  <div class="section-inner">
+    <div class="section-kicker">a little game for you</div>
+    <h2>Memory Match ♡</h2>
+    <p class="section-desc">
+      Lật hai thẻ để tìm những cặp hình giống nhau.
+      Mỗi cặp đúng sẽ mở ra một kỷ niệm nhé!
+    </p>
+
+    <div class="memory-game-panel">
+
+      <div class="memory-stats">
+        <div class="memory-stat">
+          LƯỢT LẬT
+          <strong id="memoryMoves">0</strong>
+        </div>
+
+        <div class="memory-stat">
+          SỐ CẶP ĐÃ TÌM
+          <strong id="memoryPairs">0 / 6</strong>
+        </div>
+      </div>
+
+      <div class="memory-board" id="memoryBoard"></div>
+
+      <p class="memory-feedback" id="memoryFeedback">
+        Tìm đủ 6 cặp để mở tất cả kỷ niệm nha! ♡
+      </p>
+
+      <button class="memory-restart" id="memoryRestart" type="button">
+        ↻ PLAY AGAIN
+      </button>
+
+      <div class="memory-gallery" id="memoryGallery"></div>
+
+      <div class="memory-finish" id="memoryFinish" hidden>
+        YOU DID IT! ♡
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- POPUP ẢNH KỶ NIỆM -->
+<div class="memory-popup" id="memoryPopup"
+     role="dialog" aria-modal="true"
+     aria-label="Ảnh kỷ niệm" hidden>
+
+  <div class="memory-popup-content">
+
+    <img id="memoryPopupImage" src="" alt="Ảnh kỷ niệm">
+
+    <button class="memory-continue" id="memoryContinue" type="button">
+      CONTINUE
+    </button>
+
+  </div>
+</div>
+<!-- ===== END MEMORY MATCH GAME ===== -->
+
     <section class="letter-section" id="letter">
       <div class="section-inner">
         <div class="section-kicker">open when you're ready</div>
@@ -734,6 +968,243 @@ oracleShuffle.addEventListener("click", () => {
 });
 
 // ===== END THE LITTLE ORACLE =====
+    
+// ===== MEMORY MATCH GAME LOGIC =====
+(() => {
+
+  // 6 biểu tượng tạo thành 6 cặp
+  const symbols = ["🎂", "🎀", "🌷", "💌", "⭐", "🧸"];
+
+  const board = document.getElementById("memoryBoard");
+  const movesLabel = document.getElementById("memoryMoves");
+  const pairsLabel = document.getElementById("memoryPairs");
+  const feedback = document.getElementById("memoryFeedback");
+  const restartButton = document.getElementById("memoryRestart");
+  const gallery = document.getElementById("memoryGallery");
+  const finish = document.getElementById("memoryFinish");
+  const popup = document.getElementById("memoryPopup");
+  const popupImage = document.getElementById("memoryPopupImage");
+  const continueButton = document.getElementById("memoryContinue");
+
+  let firstCard = null;
+  let lockBoard = false;
+  let moves = 0;
+  let matchedPairs = 0;
+  let mismatchTimer = null;
+
+  // Xáo trộn bài
+  function shuffle(array) {
+    const result = [...array];
+
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+
+    return result;
+  }
+
+  // Tạo từng thẻ bài
+  function createCard(symbol, index) {
+    const card = document.createElement("button");
+
+    card.type = "button";
+    card.className = "memory-card";
+    card.dataset.symbol = symbol;
+    card.setAttribute("aria-label", "Thẻ úp " + (index + 1));
+
+    card.innerHTML = `
+      <span class="memory-card-inner">
+        <span class="memory-card-face memory-card-back">♡</span>
+        <span class="memory-card-face memory-card-front">
+          ${symbol}
+        </span>
+      </span>
+    `;
+
+    card.addEventListener("click", () => flipCard(card));
+
+    return card;
+  }
+
+  // Cập nhật bộ đếm
+  function updateStats() {
+    movesLabel.textContent = moves;
+    pairsLabel.textContent = matchedPairs + " / 6";
+  }
+
+  // Thêm ảnh vào bộ sưu tập
+  function addUnlockedPhoto(pairNumber) {
+    const image = document.createElement("img");
+
+    image.src = "unlock" + pairNumber + ".jpg";
+    image.alt = "Kỷ niệm " + pairNumber;
+
+    image.addEventListener("error", () => {
+      console.error("Không tìm thấy ảnh unlock" + pairNumber + ".jpg");
+    });
+
+    gallery.appendChild(image);
+  }
+
+  // Mở popup ảnh
+  function showUnlockedPhoto(pairNumber) {
+    popupImage.src = "unlock" + pairNumber + ".jpg";
+    popupImage.alt = "Ảnh kỷ niệm " + pairNumber;
+
+    popup.hidden = false;
+    continueButton.focus();
+  }
+
+  // Đóng popup khi nhấn CONTINUE
+  function closePopup() {
+    popup.hidden = true;
+    popupImage.src = "";
+
+    if (matchedPairs === 6) {
+      finish.hidden = false;
+
+      feedback.textContent =
+        "Bạn đã tìm đủ 6 cặp và mở tất cả kỷ niệm! ♡";
+
+      confetti(100);
+
+    } else {
+      feedback.textContent =
+        "Tuyệt vời! Tiếp tục tìm những cặp còn lại nhé. ♡";
+    }
+
+    lockBoard = false;
+  }
+
+  // Lật thẻ
+  function flipCard(card) {
+
+    if (
+      lockBoard ||
+      card === firstCard ||
+      card.classList.contains("is-flipped") ||
+      card.classList.contains("is-matched")
+    ) {
+      return;
+    }
+
+    card.classList.add("is-flipped");
+
+    if (!firstCard) {
+      firstCard = card;
+      return;
+    }
+
+    const secondCard = card;
+
+    moves++;
+    updateStats();
+
+    // Kiểm tra hai thẻ có giống nhau không
+    if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+
+      const pairNumber =
+        symbols.indexOf(firstCard.dataset.symbol) + 1;
+
+      firstCard.classList.add("is-matched");
+      secondCard.classList.add("is-matched");
+
+      firstCard.disabled = true;
+      secondCard.disabled = true;
+
+      firstCard = null;
+
+      matchedPairs++;
+      updateStats();
+
+      // Lưu ảnh vào bộ sưu tập
+      addUnlockedPhoto(pairNumber);
+
+      feedback.textContent =
+        "Tìm được một cặp rồi! Một kỷ niệm đang chờ út. ♡";
+
+      // Khóa game trong lúc xem ảnh
+      lockBoard = true;
+
+      // Hiện ảnh tương ứng
+      showUnlockedPhoto(pairNumber);
+
+    } else {
+
+      // Nếu sai, tự động úp lại sau 900ms
+      lockBoard = true;
+
+      feedback.textContent =
+        "Chưa trùng nhau rồi, thử lại nhé!";
+
+      mismatchTimer = setTimeout(() => {
+
+        firstCard.classList.remove("is-flipped");
+        secondCard.classList.remove("is-flipped");
+
+        firstCard = null;
+        lockBoard = false;
+        mismatchTimer = null;
+
+      }, 900);
+    }
+  }
+
+  // Bắt đầu hoặc chơi lại
+  function startGame() {
+
+    if (mismatchTimer) {
+      clearTimeout(mismatchTimer);
+      mismatchTimer = null;
+    }
+
+    firstCard = null;
+    lockBoard = false;
+
+    moves = 0;
+    matchedPairs = 0;
+
+    popup.hidden = true;
+    popupImage.src = "";
+
+    gallery.innerHTML = "";
+    finish.hidden = true;
+
+    feedback.textContent =
+      "Tìm đủ 6 cặp để mở tất cả kỷ niệm nha! ♡";
+
+    updateStats();
+
+    // Tạo 12 thẻ gồm 6 cặp
+    const deck = shuffle([...symbols, ...symbols]);
+
+    board.innerHTML = "";
+
+    deck.forEach((symbol, index) => {
+      board.appendChild(createCard(symbol, index));
+    });
+  }
+
+  // Nút CONTINUE
+  continueButton.addEventListener("click", closePopup);
+
+  // Nút chơi lại
+  restartButton.addEventListener("click", startGame);
+
+  // Không đóng popup khi click ra ngoài
+  popup.addEventListener("click", event => {
+    if (event.target === popup) {
+      return;
+    }
+  });
+
+  // Khởi tạo game
+  startGame();
+
+})();
+// ===== END MEMORY MATCH GAME LOGIC =====
+
   </script>
 </body>
 </html>
