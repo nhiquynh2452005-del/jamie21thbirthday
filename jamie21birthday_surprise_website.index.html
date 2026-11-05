@@ -83,6 +83,13 @@
     @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.9}}
     @media(max-width:700px){.topbar{padding:18px 20px}.hero-art{height:185px}.cake{font-size:112px}.memory-grid{grid-template-columns:1fr;max-width:390px;margin:auto;gap:20px}.photo{height:230px}.memory{transform:none}section{padding:76px 20px}.float{font-size:22px}.f1{left:5%}.f2{right:5%}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  display: block;
+}
   </style>
 </head>
 <body>
@@ -108,9 +115,15 @@
         <h2>Những điều nhỏ xíu,<br>thế mà lại hay.</h2>
         <p class="section-desc">Vậy là chị 2 và út đã đi chung với nhau đoạn đường 6 năm rồi đó nha.</p>
         <div class="memory-grid">
-          <article class="memory" style="--r:-2deg"><div class="photo"><div><span class="emoji">📸</span><small>thay ảnh kỷ niệm ở đây</small></div></div><p>Mấy chị em ở Mạc</p><div class="sub">Ảnh của hai đứa · 01</div></article>
-          <article class="memory" style="--r:1.5deg"><div class="photo"><div><span class="emoji">🍰</span><small>thay ảnh kỷ niệm ở đây</small></div></div><p>Mấy chị em ở biển</p><div class="sub">Ảnh của hai đứa · 02</div></article>
-          <article class="memory" style="--r:-1deg"><div class="photo"><div><span class="emoji">🌷</span><small>thay ảnh kỷ niệm ở đây</small></div></div><p>Mấy chị em ở Tân Nhật</p><div class="sub">Ảnh của hai đứa · 03</div></article>
+          <article class="memory" style="--r:-2deg"><div class="photo">
+  <img src="memory3.jpg" alt="Kỷ niệm của chúng ta">
+</div><p>Mấy chị em ở Mạc</p><div class="sub">non chẹt cực yêu · 01</div></article>
+          <article class="memory" style="--r:1.5deg"><div class="photo">
+  <img src="memory2.jpg" alt="Một ngày đáng nhớ">
+</div><p>Mấy chị em ở biển</p><div class="sub">sứa cắn banh xác · 02</div></article>
+          <article class="memory" style="--r:-1deg"><div class="photo">
+  <img src="memory1.jpg" alt="Những khoảnh khắc bên nhau">
+</div><p>Mấy chị em ở Tân Nhựt</p><div class="sub">tuổi thơ cánh đồng lúa · 03</div></article>
         </div>
     </section>
 
